@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>AI Career Recommendation System</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+<body>
+
+<header>
+
+    <div class="container">
+
+        <h1>AI Career Analyzer</h1>
+
+        <p>
+            Discover careers that match your current skills.
+        </p>
+
+    </div>
+
+</header>
+
+
+<main class="container">
+
+    <section class="card">
+
+        <h2>Skill Assessment</h2>
+
+        <p>
+            Rate your current skill level from 0 to 100.
+        </p>
+
+
+        <form method="POST">
+
+
+            <div class="skill">
+
+                <label>Python</label>
+
+                <input
+                    type="range"
+                    name="python"
+                    min="0"
+                    max="100"
+                    value="50"
+                    oninput="this.nextElementSibling.value=this.value">
+
+                <output>50</output>
+
+            </div>
+
+
+            <div class="skill">
+
+                <label>SQL</label>
+
+                <input
+                    type="range"
+                    name="sql"
+                    min="0"
+                    max="100"
+                    value="50"
+                    oninput="this.nextElementSibling.value=this.value">
+
+                <output>50</output>
+
+            </div>
+
+
+            <div class="skill">
+
+                <label>Excel</label>
+
+                <input
+                    type="range"
+                    name="excel"
+                    min="0"
+                    max="100"
+                    value="50"
+                    oninput="this.nextElementSibling.value=this.value">
+
+                <output>50</output>
+
+            </div>
+
+
+            <div class="skill">
+
+                <label>Statistics</label>
+
+                <input
+                    type="range"
+                    name="statistics"
+                    min="0"
+                    max="100"
+                    value="50"
+                    oninput="this.nextElementSibling.value=this.value">
+
+                <output>50</output>
+
+            </div>
+
+
+            <div class="skill">
+
+                <label>Machine Learning</label>
+
+                <input
+                    type="range"
+                    name="machine_learning"
+                    min="0"
+                    max="100"
+                    value="50"
+                    oninput="this.nextElementSibling.value=this.value">
+
+                <output>50</output>
+
+            </div>
+
+
+            <div class="skill">
+
+                <label>Web Development</label>
+
+                <input
+                    type="range"
+                    name="web_development"
+                    min="0"
+                    max="100"
+                    value="50"
+                    oninput="this.nextElementSibling.value=this.value">
+
+                <output>50</output>
+
+            </div>
+
+
+            <div class="skill">
+
+                <label>Communication</label>
+
+                <input
+                    type="range"
+                    name="communication"
+                    min="0"
+                    max="100"
+                    value="50"
+                    oninput="this.nextElementSibling.value=this.value">
+
+                <output>50</output>
+
+            </div>
+
+
+            <button type="submit">
+
+                Analyze My Career
+
+            </button>
+
+
+        </form>
+
+    </section>
+
+
+    {% if recommendations %}
+
+
+    <section>
+
+        <h2>Recommended Careers</h2>
+
+
+        {% for item in recommendations %}
+
+
+        <article class="result">
+
+
+            <div class="result-head">
+
+                <h3>
+                    {{ item.career }}
+                </h3>
+
+                <strong>
+                    {{ item.match }}% Match
+                </strong>
+
+            </div>
+
+
+            <p>
+                {{ item.description }}
+            </p>
+
+
+            <div class="progress">
+
+                <span
+                    style="width: {{ item.match }}%">
+                </span>
+
+            </div>
+
+
+            <h4>
+                Skills to Improve
+            </h4>
+
+
+            {% if item.missing %}
+
+            <ul>
+
+                {% for skill in item.missing %}
+
+                <li>
+                    {{ skill }}
+                </li>
+
+                {% endfor %}
+
+            </ul>
+
+            {% else %}
+
+            <p>
+                Great! Your current profile covers the main skills.
+            </p>
+
+            {% endif %}
+
+
+            <h4>
+                Suggested Roadmap
+            </h4>
+
+
+            <ol>
+
+                {% for step in item.roadmap %}
+
+                <li>
+                    {{ step }}
+                </li>
+
+                {% endfor %}
+
+            </ol>
+
+
+        </article>
+
+
+        {% endfor %}
+
+
+    </section>
+
+
+    {% endif %}
+
+
+</main>
+
+
+<footer>
+
+    <p>
+        B.Sc. IT Internship Project |
+        AI Career Recommendation System
+    </p>
+
+</footer>
+
+
+<script
+    src="{{ url_for('static', filename='js/script.js') }}">
+</script>
+
+
+</body>
+
+</html>
